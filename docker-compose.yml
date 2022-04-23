@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+
+  db:
+    image: postgres
+    container_name: db
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=rentalx
+    volumes:
+      - pgdata:/data/postgres
+
+  app:
+    build: .
+    container_name: rentalx
+    ports:
+      - 5000:5000
+      - 9229:9229
+    volumes:
+      - .:/usr/app
+    links:
+      - db
+    depends_on:
+      - db
+      
+volumes:
+  pgdata:
