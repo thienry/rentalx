@@ -6,17 +6,6 @@ import { ICreateCategoryDTO, ICategoriesRepository } from './interfaces/ICategor
 class CategoriesRepository implements ICategoriesRepository {
   private repository: Repository<Category>
 
-  // private static INSTANCE: CategoriesRepository
-
-  /*
-  public static getInstance(): CategoriesRepository {
-    if (!CategoriesRepository.INSTANCE) {
-      CategoriesRepository.INSTANCE = new CategoriesRepository()
-    }
-    return CategoriesRepository.INSTANCE
-  }
-  */
-
   constructor() {
     this.repository = getRepository(Category)
   }
