@@ -12,4 +12,4 @@ class ListCategoriesController {
   }
 }
 
-export { ListCategoriesController }
+export default new ListCategoriesController()

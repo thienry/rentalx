@@ -14,4 +14,4 @@ class ImportCategoryController {
   }
 }
 
-export { ImportCategoryController }
+export default new ImportCategoryController()

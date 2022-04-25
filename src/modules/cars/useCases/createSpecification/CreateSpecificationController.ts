@@ -14,4 +14,4 @@ class CreateSpecificationController {
   }
 }
 
-export { CreateSpecificationController }
+export default new CreateSpecificationController()
