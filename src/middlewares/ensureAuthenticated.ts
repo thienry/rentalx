@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import { NextFunction, Request, Response } from 'express'
 
+import { AppError } from '../errors/AppError'
 import { UsersRepository } from '../modules/accounts/repositories/UsersRepository'
 
 interface IPayload {
@@ -9,7 +10,7 @@ interface IPayload {
 
 export async function ensureAuthenticated(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers.authorization
-  if (!authHeader) throw new Error('Missing token!')
+  if (!authHeader) throw new AppError('Missing token!', 401)
 
   const [, token] = authHeader.split(' ')
 
@@ -19,10 +20,10 @@ export async function ensureAuthenticated(req: Request, res: Response, next: Nex
     const usersRepository = new UsersRepository()
 
     const user = await usersRepository.findById(user_id)
-    if (!user) throw new Error('User does not exists!')
+    if (!user) throw new AppError('User does not exists!', 401)
 
     next()
   } catch (error) {
-    throw new Error('Invalid token!')
+    throw new AppError('Invalid token!', 401)
   }
 }
