@@ -15,12 +15,14 @@ export async function ensureAuthenticated(req: Request, res: Response, next: Nex
   const [, token] = authHeader.split(' ')
 
   try {
-    const { sub: user_id } = jwt.verify(token, '71d245fcd4126c9f33ff47131b49c709') as IPayload
+    const { sub: userId } = jwt.verify(token, '71d245fcd4126c9f33ff47131b49c709') as IPayload
 
     const usersRepository = new UsersRepository()
 
-    const user = await usersRepository.findById(user_id)
+    const user = await usersRepository.findById(userId)
     if (!user) throw new AppError('User does not exists!', 401)
+
+    req.user = { id: userId }
 
     next()
   } catch (error) {

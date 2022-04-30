@@ -10,6 +10,9 @@ class User {
   name: string
 
   @Column()
+  avatar: string
+
+  @Column()
   email: string
 
   @Column()
@@ -25,9 +28,7 @@ class User {
   created_at: Date
 
   constructor() {
-    if (!this.id) {
-      this.id = uuidV4()
-    }
+    if (!this.id) this.id = uuidV4()
   }
 }
 
