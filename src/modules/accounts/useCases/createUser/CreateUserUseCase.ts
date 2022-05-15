@@ -2,10 +2,10 @@ import 'reflect-metadata'
 import bcrypt from 'bcrypt'
 import { inject, injectable } from 'tsyringe'
 
-import { User } from '../../entities/User'
-import { AppError } from '../../../../errors/AppError'
-import { ICreateUserDTO } from '../../dtos/ICreateUserDTO'
-import { IUsersRepository } from '../../repositories/interfaces/IUsersRepository'
+import { AppError } from '@errors/AppError'
+import { User } from '@modules/accounts/entities/User'
+import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO'
+import { IUsersRepository } from '@modules/accounts/repositories/interfaces/IUsersRepository'
 
 @injectable()
 class CreateUserUseCase {

@@ -2,8 +2,8 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { inject, injectable } from 'tsyringe'
 
-import { AppError } from '../../../../errors/AppError'
-import { IUsersRepository } from '../../repositories/interfaces/IUsersRepository'
+import { AppError } from '@errors/AppError'
+import { IUsersRepository } from '@modules/accounts/repositories/interfaces/IUsersRepository'
 
 interface IRequest {
   email: string
