@@ -11,14 +11,9 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@utils/*": ["utils/*"],
       "@config/*": ["config/*"],
-      "@errors/*": ["errors/*"],
-      "@routes/*": ["routes/*"],
       "@shared/*": ["shared/*"],
-      "@modules/*": ["modules/*"],
-      "@database/*": ["database/*"],
-      "@middlewares/*": ["middlewares/*"]
+      "@modules/*": ["modules/*"]
     }
   }
 }

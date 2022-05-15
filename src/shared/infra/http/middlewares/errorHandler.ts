@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import { AppError } from '@errors/AppError'
+import { AppError } from '@shared/errors/AppError'
 
 export function errorHandler(err: Error, req: Request, res: Response) {
   console.log('chegou')

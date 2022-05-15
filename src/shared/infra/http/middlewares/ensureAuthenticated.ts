@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken'
 import { NextFunction, Request, Response } from 'express'
 
-import { AppError } from '@errors/AppError'
-import { UsersRepository } from '@modules/accounts/repositories/UsersRepository'
+import { AppError } from '@shared/errors/AppError'
+import { UsersRepository } from '@modules/accounts/infra/typeorm/repositories/UsersRepository'
 
 interface IPayload {
   sub: string

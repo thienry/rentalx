@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-unresolved
-import { pathsToModuleNameMapper } from 'ts-jest/utils'
+import { pathsToModuleNameMapper } from 'ts-jest'
 
 import { compilerOptions } from './tsconfig.json'
 
@@ -34,12 +33,7 @@ export default {
   coverageProvider: 'v8',
 
   // A list of reporter names that Jest uses when writing coverage reports
-  // coverageReporters: [
-  //   "json",
-  //   "text",
-  //   "lcov",
-  //   "clover"
-  // ],
+  // coverageReporters: ["json", "text", "lcov", "clover"],
 
   // An object that configures minimum threshold enforcement for coverage results
   // coverageThreshold: undefined,
@@ -88,9 +82,7 @@ export default {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
-    prefix: '<rootDir>/src/',
-  }),
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/src/' }),
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
