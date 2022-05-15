@@ -1,6 +1,8 @@
+import 'reflect-metadata'
 import bcrypt from 'bcrypt'
 import { inject, injectable } from 'tsyringe'
 
+import { User } from '../../entities/User'
 import { AppError } from '../../../../errors/AppError'
 import { ICreateUserDTO } from '../../dtos/ICreateUserDTO'
 import { IUsersRepository } from '../../repositories/interfaces/IUsersRepository'
@@ -9,7 +11,7 @@ import { IUsersRepository } from '../../repositories/interfaces/IUsersRepository
 class CreateUserUseCase {
   constructor(@inject('UsersRepository') private usersRepository: IUsersRepository) {}
 
-  async execute(data: ICreateUserDTO): Promise<void> {
+  async execute(data: ICreateUserDTO): Promise<User> {
     const userAlreadyExists = await this.usersRepository.findByEmail(data.email)
     if (userAlreadyExists) throw new AppError('User already exists!')
 
