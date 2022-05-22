@@ -2,7 +2,6 @@ import fs from 'fs'
 import { parse } from 'csv-parse'
 import { inject, injectable } from 'tsyringe'
 
-import { Category } from '@modules/cars/infra/typeorm/entities/Category'
 import { CategoriesRepository } from '@modules/cars/infra/typeorm/repositories/CategoriesRepository'
 
 interface IImportCategory {
@@ -35,7 +34,7 @@ class ImportCategoryUseCase {
     })
   }
 
-  async execute(file: Express.Multer.File): Promise<Category[]> {
+  async execute(file: Express.Multer.File): Promise<IImportCategory[]> {
     const categories = await this.loadCategories(file)
 
     categories.map(async (category) => {
