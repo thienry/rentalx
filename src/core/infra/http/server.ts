@@ -1,10 +1,10 @@
 import 'reflect-metadata'
 import swaggerUi from 'swagger-ui-express'
-import { createConnection } from 'typeorm'
 import express, { NextFunction, Request, Response } from 'express'
 
 import 'express-async-errors'
 
+import createConn from '@core/infra/typeorm'
 import { AppError } from '@core/errors/AppError'
 
 import { router } from './routes'
@@ -30,6 +30,6 @@ app.use((err: Error, request: Request, response: Response, _next: NextFunction) 
   })
 })
 
-createConnection()
+createConn()
   .then(() => app.listen(5000, () => console.log('API has been started...')))
   .catch((err) => console.log(err.message))

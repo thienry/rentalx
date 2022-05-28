@@ -8,7 +8,11 @@ interface IPayload {
   sub: string
 }
 
-export async function ensureAuthenticated(req: Request, res: Response, next: NextFunction) {
+export async function ensureAuthenticated(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> {
   const authHeader = req.headers.authorization
   if (!authHeader) throw new AppError('Missing token!', 401)
 
