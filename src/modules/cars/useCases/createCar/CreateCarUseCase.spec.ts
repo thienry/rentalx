@@ -1,3 +1,5 @@
+import 'reflect-metadata'
+
 import { AppError } from '@core/errors/AppError'
 import { CreateCarUseCase } from '@modules/cars/useCases/createCar/createCarUseCase'
 import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory'

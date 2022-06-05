@@ -22,6 +22,10 @@ class CarsRepositoryInMemory implements ICarsRepository {
         car.available || car.brand === brand || car.name === name || car.category_id === category_id
     )
   }
+
+  async findById(carId: string): Promise<Car> {
+    return this.cars.find((car) => car.id === carId)
+  }
 }
 
 export { CarsRepositoryInMemory }

@@ -22,4 +22,4 @@ class CreateCarController {
   }
 }
 
-export { CreateCarController }
+export default new CreateCarController()

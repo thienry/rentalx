@@ -11,6 +11,10 @@ class CarsRepository implements ICarsRepository {
     this.repository = getRepository(Car)
   }
 
+  async findById(carId: string): Promise<Car> {
+    return this.repository.findOne(carId)
+  }
+
   async findAvailable(brand?: string, name?: string, category_id?: string): Promise<Car[]> {
     const carsQuery = await this.repository
       .createQueryBuilder('c')
@@ -26,9 +30,7 @@ class CarsRepository implements ICarsRepository {
       carsQuery.andWhere('c.category_id = :category_id', { category_id })
     }
 
-    const cars = await carsQuery.getMany()
-
-    return cars
+    return carsQuery.getMany()
   }
 
   async findByLicensePlate(licensePlate: string): Promise<Car> {
@@ -39,6 +41,7 @@ class CarsRepository implements ICarsRepository {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const car = this.repository.create({
+      id: data.id,
       name: data.name,
       brand: data.brand,
       daily_rate: data.daily_rate,
@@ -46,9 +49,11 @@ class CarsRepository implements ICarsRepository {
       description: data.description,
       fine_amount: data.fine_amount,
       license_plate: data.license_plate,
+      specifications: data.specifications,
     })
-    await this.repository.save(car)
-    return car
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return this.repository.save(car)
   }
 }
 
