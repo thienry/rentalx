@@ -17,9 +17,9 @@ class SpecificationRepositoryInMemory implements ISpecificationsRepository {
     )
   }
 
-  async create({ name, description }: ICreateSpecificationDTO): Promise<Specification> {
+  async create(data: ICreateSpecificationDTO): Promise<Specification> {
     const specification = new Specification()
-    Object.assign(specification, { name, description })
+    Object.assign(specification, data)
     this.specifications.push(specification)
     return specification
   }
