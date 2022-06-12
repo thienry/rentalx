@@ -3,6 +3,7 @@ import { ICreateRentalDTO } from '@modules/rentals/dtos/ICreateRentalDTO'
 
 interface IRentalsRepository {
   findById(rentalId: string): Promise<Rental>
+  findByUserId(userId: string): Promise<Rental[]>
   create(rental: ICreateRentalDTO): Promise<Rental>
   findOpenRentalByCar(carId: string): Promise<Rental>
   findOpenRentalByUser(userId: string): Promise<Rental>

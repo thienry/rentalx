@@ -35,6 +35,10 @@ class RentalsRepository implements IRentalsRepository {
   async findById(rentalId: string): Promise<Rental> {
     return this.repository.findOne(rentalId)
   }
+
+  async findByUserId(userId: string): Promise<Rental[]> {
+    return this.repository.find({ where: { user_id: userId }, relations: ['car'] })
+  }
 }
 
 export { RentalsRepository }
