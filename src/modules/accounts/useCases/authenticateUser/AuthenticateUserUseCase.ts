@@ -34,9 +34,7 @@ class AuthenticateUserUseCase {
       expiresIn: '1d',
     })
 
-    const session: IResponse = { token, user: { name: user.name, email: user.email } }
-
-    return session
+    return { token, user: { name: user.name, email: user.email } }
   }
 }
 
