@@ -20,6 +20,13 @@ class DayjsDateProvider implements IDateProvider {
 
     return dayjs(endDateUtc).diff(startDateUtc, 'hours')
   }
+
+  compareInDays(startDate: Date, endDate: Date): number {
+    const startDateUtc = this.convertToUTC(startDate)
+    const endDateUtc = this.convertToUTC(endDate)
+
+    return dayjs(endDateUtc).diff(startDateUtc, 'days')
+  }
 }
 
 export { DayjsDateProvider }

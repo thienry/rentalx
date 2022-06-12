@@ -20,8 +20,8 @@ describe('Create Rental', () => {
     carsRepositoryInMemory = new CarsRepositoryInMemory()
     rentalsRepositoryInMemory = new RentalsRepositoryInMemory()
     createRentalUseCase = new CreateRentalUseCase(
-      carsRepositoryInMemory,
       dayjsDateProvider,
+      carsRepositoryInMemory,
       rentalsRepositoryInMemory
     )
   })
