@@ -44,15 +44,14 @@ describe('Create car specification', () => {
     expect(specificationsCars.specifications.length).toBe(1)
   })
 
-  it('Should not be able to add a new specification to a non-existent car', () => {
-    expect(async () => {
-      const carId = '4cb4bdce-8824-4a4d-a901-c944842a3530'
-      const specificationsId = [
-        '9e39ef60-2685-4037-b9d7-906c0f57e97c',
-        '3fe4122a-8019-4e24-ab29-7df9b9c1f76b',
-      ]
-
-      await createCarSpecification.execute({ car_id: carId, specifications_id: specificationsId })
-    }).rejects.toBeInstanceOf(AppError)
+  it('Should not be able to add a new specification to a non-existent car', async () => {
+    const carId = '4cb4bdce-8824-4a4d-a901-c944842a3530'
+    const specificationsId = [
+      '9e39ef60-2685-4037-b9d7-906c0f57e97c',
+      '3fe4122a-8019-4e24-ab29-7df9b9c1f76b',
+    ]
+    await expect(
+      createCarSpecification.execute({ car_id: carId, specifications_id: specificationsId })
+    ).rejects.toEqual(new AppError('Car does not exists!'))
   })
 })
