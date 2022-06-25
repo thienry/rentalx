@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@core/errors/AppError'
-import { IDateProvider } from '@core/container/providers/interfaces/IDateProvider'
+import { IDateProvider } from '@shared/providers/interfaces/IDateProvider'
 import { IUsersRepository } from '@modules/accounts/repositories/interfaces/IUsersRepository'
 import { IUsersTokensRepository } from '@modules/accounts/repositories/interfaces/IUsersTokensRepository'
 

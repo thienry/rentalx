@@ -1,6 +1,6 @@
 import { AppError } from '@core/errors/AppError'
 import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO'
-import { DayjsDateProvider } from '@core/container/providers/dateProvider/DayjsDateProvider'
+import { DayjsDateProvider } from '@shared/providers/dateProvider/DayjsDateProvider'
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory'
 import { UsersTokensRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersTokensRepositoryInMemory'
 

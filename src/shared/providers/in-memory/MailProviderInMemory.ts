@@ -1,4 +1,4 @@
-import { IMailProvider } from '@core/container/providers/interfaces/IMailProvider'
+import { IMailProvider } from '@shared/providers/interfaces/IMailProvider'
 
 interface IVariable {
   name: string

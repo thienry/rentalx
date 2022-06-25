@@ -2,7 +2,7 @@ import 'reflect-metadata'
 import dayjs from 'dayjs'
 
 import { AppError } from '@core/errors/AppError'
-import { DayjsDateProvider } from '@core/container/providers/dateProvider/DayjsDateProvider'
+import { DayjsDateProvider } from '@shared/providers/dateProvider/DayjsDateProvider'
 import { CreateRentalUseCase } from '@modules/rentals/useCases/createRental/CreateRentalUseCase'
 import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory'
 import { RentalsRepositoryInMemory } from '@modules/rentals/repositories/in-memory/RentalsRepositoryInMemory'

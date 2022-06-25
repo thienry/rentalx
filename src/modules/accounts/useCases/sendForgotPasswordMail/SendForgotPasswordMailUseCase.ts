@@ -3,8 +3,8 @@ import { v4 as uuidV4 } from 'uuid'
 import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@core/errors/AppError'
-import { IDateProvider } from '@core/container/providers/interfaces/IDateProvider'
-import { IMailProvider } from '@core/container/providers/interfaces/IMailProvider'
+import { IDateProvider } from '@shared/providers/interfaces/IDateProvider'
+import { IMailProvider } from '@shared/providers/interfaces/IMailProvider'
 import { IUsersRepository } from '@modules/accounts/repositories/interfaces/IUsersRepository'
 import { IUsersTokensRepository } from '@modules/accounts/repositories/interfaces/IUsersTokensRepository'
 

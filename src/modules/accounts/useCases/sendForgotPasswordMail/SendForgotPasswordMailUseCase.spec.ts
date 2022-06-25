@@ -1,6 +1,6 @@
 import { AppError } from '@core/errors/AppError'
-import { DayjsDateProvider } from '@core/container/providers/dateProvider/DayjsDateProvider'
-import { MailProviderInMemory } from '@core/container/providers/in-memory/MailProviderInMemory'
+import { DayjsDateProvider } from '@shared/providers/dateProvider/DayjsDateProvider'
+import { MailProviderInMemory } from '@shared/providers/in-memory/MailProviderInMemory'
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory'
 import { UsersTokensRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersTokensRepositoryInMemory'
 import { SendForgotPasswordMailUseCase } from '@modules/accounts/useCases/sendForgotPasswordMail/SendForgotPasswordMailUseCase'

@@ -3,7 +3,7 @@ import handlebars from 'handlebars'
 import { injectable } from 'tsyringe'
 import nodemailer, { Transporter } from 'nodemailer'
 
-import { IMailProvider } from '@core/container/providers/interfaces/IMailProvider'
+import { IMailProvider } from '@shared/providers/interfaces/IMailProvider'
 
 interface IMailVariable {
   name: string
