@@ -4,6 +4,8 @@ import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@core/errors/AppError'
 import { IUsersRepository } from '@modules/accounts/repositories/interfaces/IUsersRepository'
+import { IDateProvider } from '@core/container/providers/dateProvider/interfaces/IDateProvider'
+import { IUsersTokensRepository } from '@modules/accounts/repositories/interfaces/IUsersTokensRepository'
 
 interface IRequest {
   email: string
@@ -12,6 +14,7 @@ interface IRequest {
 
 interface IResponse {
   token: string
+  refreshToken: string
   user: {
     name: string
     email: string
@@ -20,7 +23,11 @@ interface IResponse {
 
 @injectable()
 class AuthenticateUserUseCase {
-  constructor(@inject('UsersRepository') private usersRepository: IUsersRepository) {}
+  constructor(
+    @inject('DayjsDateProvider') private dateProvider: IDateProvider,
+    @inject('UsersRepository') private usersRepository: IUsersRepository,
+    @inject('UsersTokensRepository') private usersTokensRepository: IUsersTokensRepository
+  ) {}
 
   async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.usersRepository.findByEmail(email)
@@ -29,12 +36,32 @@ class AuthenticateUserUseCase {
     const passwdMatch = await bcrypt.compare(password, user.password)
     if (!passwdMatch) throw new AppError('Email or password are incorrect!')
 
-    const token = jwt.sign({}, '71d245fcd4126c9f33ff47131b49c709', {
+    const token = jwt.sign({}, process.env.SECRET_TOKEN, {
       subject: user.id,
-      expiresIn: '1d',
+      expiresIn: process.env.EXPIRES_IN_TOKEN,
+    })
+    const refreshToken = jwt.sign({ email }, process.env.SECRET_REFRESH_TOKEN, {
+      subject: user.id,
+      expiresIn: process.env.EXPIRES_IN_REFRESH_TOKEN,
+    })
+    const refreshTokenExpiresDate = this.dateProvider.addDays(
+      process.env.EXPIRES_REFRESH_TOKEN_DAYS
+    )
+
+    await this.usersTokensRepository.create({
+      user_id: user.id,
+      refresh_token: refreshToken,
+      expires_date: refreshTokenExpiresDate,
     })
 
-    return { token, user: { name: user.name, email: user.email } }
+    return {
+      token,
+      refreshToken,
+      user: {
+        name: user.name,
+        email: user.email,
+      },
+    }
   }
 }
 
