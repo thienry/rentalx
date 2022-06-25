@@ -22,6 +22,8 @@ class SendForgotPasswordMailUseCase {
   ) {}
 
   async execute(email: string) {
+    const { FORGOT_MAIL_URL } = process.env
+
     const user = await this.usersRepository.findByEmail(email)
     if (!user) throw new AppError('User does not exists!')
 
@@ -38,7 +40,7 @@ class SendForgotPasswordMailUseCase {
 
     const variables = {
       name: user.name,
-      link: `${process.env.FORGOT_MAIL_URL as string}?token=${token}`,
+      link: `${FORGOT_MAIL_URL}?token=${token}`,
     }
 
     await this.mailProvider.sendMail(email, this.EMAIL_SUBJECT, variables, tplPath)

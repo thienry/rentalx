@@ -29,23 +29,30 @@ class AuthenticateUserUseCase {
   ) {}
 
   async execute({ email, password }: IRequest): Promise<IResponse> {
+    const {
+      SECRET_TOKEN,
+      EXPIRES_IN_TOKEN,
+      SECRET_REFRESH_TOKEN,
+      EXPIRES_IN_REFRESH_TOKEN,
+      EXPIRES_REFRESH_TOKEN_DAYS,
+    } = process.env
+
     const user = await this.usersRepository.findByEmail(email)
     if (!user) throw new AppError('Email or password are incorrect!')
 
     const passwdMatch = await bcrypt.compare(password, user.password)
     if (!passwdMatch) throw new AppError('Email or password are incorrect!')
 
-    const token = jwt.sign({}, process.env.SECRET_TOKEN as string, {
+    const token = jwt.sign({}, SECRET_TOKEN, {
       subject: user.id,
-      expiresIn: process.env.EXPIRES_IN_TOKEN,
+      expiresIn: EXPIRES_IN_TOKEN,
     })
-    const refreshToken = jwt.sign({ email }, process.env.SECRET_REFRESH_TOKEN as string, {
+    const refreshToken = jwt.sign({ email }, SECRET_REFRESH_TOKEN, {
       subject: user.id,
-      expiresIn: process.env.EXPIRES_IN_REFRESH_TOKEN as string,
+      expiresIn: EXPIRES_IN_REFRESH_TOKEN,
     })
-    const refreshTokenExpiresDate = this.dateProvider.addDays(
-      process.env.EXPIRES_REFRESH_TOKEN_DAYS as string
-    )
+
+    const refreshTokenExpiresDate = this.dateProvider.addDays(Number(EXPIRES_REFRESH_TOKEN_DAYS))
 
     await this.usersTokensRepository.create({
       user_id: user.id,
