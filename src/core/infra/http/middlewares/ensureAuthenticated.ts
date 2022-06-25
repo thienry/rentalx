@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 import { NextFunction, Request, Response } from 'express'
 
 import { AppError } from '@core/errors/AppError'
-import { UsersRepository } from '@modules/accounts/infra/typeorm/repositories/UsersRepository'
+import { UsersTokensRepository } from '@modules/accounts/infra/typeorm/repositories/UsersTokensRepository'
 
 interface IPayload {
   sub: string
@@ -16,14 +16,14 @@ export async function ensureAuthenticated(
   const authHeader = req.headers.authorization
   if (!authHeader) throw new AppError('Missing token!', 401)
 
+  const usersTokensRepository = new UsersTokensRepository()
+
   const [, token] = authHeader.split(' ')
 
   try {
-    const { sub: userId } = jwt.verify(token, '71d245fcd4126c9f33ff47131b49c709') as IPayload
+    const { sub: userId } = jwt.verify(token, process.env.SECRET_REFRESH_TOKEN) as IPayload
 
-    const usersRepository = new UsersRepository()
-
-    const user = await usersRepository.findById(userId)
+    const user = await usersTokensRepository.findByUserIdAndRefreshToken(userId, token)
     if (!user) throw new AppError('User does not exists!', 401)
 
     req.user = { id: userId }

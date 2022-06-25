@@ -4,7 +4,6 @@ import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@core/errors/AppError'
 import { IUsersRepository } from '@modules/accounts/repositories/interfaces/IUsersRepository'
-import { IDateProvider } from '@core/container/providers/dateProvider/interfaces/IDateProvider'
 import { IUsersTokensRepository } from '@modules/accounts/repositories/interfaces/IUsersTokensRepository'
 
 interface IRequest {
