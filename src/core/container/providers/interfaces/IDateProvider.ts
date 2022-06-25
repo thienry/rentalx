@@ -5,6 +5,7 @@ interface IDateProvider {
   convertToUTC(date: Date): string
   compareInDays(startDate: Date, endDate: Date): number
   compareInHours(startDate: Date, endDate: Date): number
+  compareIfBefore(startDate: Date, endDate: Date): boolean
 }
 
 export { IDateProvider }

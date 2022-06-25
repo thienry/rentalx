@@ -35,6 +35,10 @@ class DayjsDateProvider implements IDateProvider {
 
     return dayjs(endDateUtc).diff(startDateUtc, 'days')
   }
+
+  compareIfBefore(startDate: Date, endDate: Date): boolean {
+    return dayjs(startDate).isBefore(endDate)
+  }
 }
 
 export { DayjsDateProvider }

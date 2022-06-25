@@ -1,3 +1,4 @@
+import path from 'path'
 import { v4 as uuidV4 } from 'uuid'
 import { inject, injectable } from 'tsyringe'
 
@@ -9,6 +10,8 @@ import { IUsersTokensRepository } from '@modules/accounts/repositories/interface
 
 @injectable()
 class SendForgotPasswordMailUseCase {
+  private readonly EMAIL_SUBJECT = 'Password Recovery'
+
   constructor(
     @inject('DayjsDateProvider') private dateProvider: IDateProvider,
     @inject('EtherealMailProvider') private mailProvider: IMailProvider,
@@ -20,6 +23,8 @@ class SendForgotPasswordMailUseCase {
     const user = await this.usersRepository.findByEmail(email)
     if (!user) throw new AppError('User does not exists!')
 
+    const tplPath = path.resolve(__dirname, '..', '..', 'views', 'emails', 'forgotPassword.hbs')
+
     const token = uuidV4()
     const expiresDate = this.dateProvider.addHours(3)
 
@@ -29,11 +34,9 @@ class SendForgotPasswordMailUseCase {
       expires_date: expiresDate,
     })
 
-    await this.mailProvider.sendMail(
-      email,
-      'Password Recovery',
-      `Link to password reset is ${token}`
-    )
+    const variables = { name: user.name, link: `${process.env.FORGOT_MAIL_URL}?token=${token}` }
+
+    await this.mailProvider.sendMail(email, this.EMAIL_SUBJECT, variables, tplPath)
   }
 }
 

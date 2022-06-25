@@ -4,6 +4,7 @@ import { ICreateUserTokenDTO } from '@modules/accounts/dtos/ICreateUserTokenDTO'
 interface IUsersTokensRepository {
   removeById(userId: string): Promise<void>
   create(data: ICreateUserTokenDTO): Promise<UserToken>
+  findByRefreshToken(refreshToken: string): Promise<UserToken>
   findByUserIdAndRefreshToken(id: string, refreshToken: string): Promise<UserToken>
 }
 
