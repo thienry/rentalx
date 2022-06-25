@@ -31,7 +31,7 @@ describe('Create Category Controller', () => {
     const res = await request(app)
       .post('/categories')
       .send({ name: 'Valid name', description: 'Valid description' })
-      .set({ Authorization: `Bearer ${responseToken.body.token}` })
+      .set({ Authorization: `Bearer ${responseToken.body.refresh_token}` })
 
     expect(res.status).toBe(201)
   })
@@ -44,7 +44,7 @@ describe('Create Category Controller', () => {
     const res = await request(app)
       .post('/categories')
       .send({ name: 'Valid name', description: 'Valid description' })
-      .set({ Authorization: `Bearer ${responseToken.body.token}` })
+      .set({ Authorization: `Bearer ${responseToken.body.refresh_token}` })
 
     expect(res.status).toBe(400)
   })

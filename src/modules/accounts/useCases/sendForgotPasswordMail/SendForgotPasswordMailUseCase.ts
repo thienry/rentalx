@@ -8,6 +8,8 @@ import { IMailProvider } from '@core/container/providers/interfaces/IMailProvide
 import { IUsersRepository } from '@modules/accounts/repositories/interfaces/IUsersRepository'
 import { IUsersTokensRepository } from '@modules/accounts/repositories/interfaces/IUsersTokensRepository'
 
+require('dotenv').config()
+
 @injectable()
 class SendForgotPasswordMailUseCase {
   private readonly EMAIL_SUBJECT = 'Password Recovery'
@@ -34,7 +36,10 @@ class SendForgotPasswordMailUseCase {
       expires_date: expiresDate,
     })
 
-    const variables = { name: user.name, link: `${process.env.FORGOT_MAIL_URL}?token=${token}` }
+    const variables = {
+      name: user.name,
+      link: `${process.env.FORGOT_MAIL_URL as string}?token=${token}`,
+    }
 
     await this.mailProvider.sendMail(email, this.EMAIL_SUBJECT, variables, tplPath)
   }

@@ -31,7 +31,7 @@ describe('List Category Controller', () => {
     await request(app)
       .post('/categories')
       .send({ name: 'Valid name', description: 'Valid description' })
-      .set({ Authorization: `Bearer ${responseToken.body.token}` })
+      .set({ Authorization: `Bearer ${responseToken.body.refresh_token}` })
 
     const res = await request(app).get('/categories')
 

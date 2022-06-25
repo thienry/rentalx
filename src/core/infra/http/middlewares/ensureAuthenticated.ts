@@ -4,6 +4,8 @@ import { NextFunction, Request, Response } from 'express'
 import { AppError } from '@core/errors/AppError'
 import { UsersTokensRepository } from '@modules/accounts/infra/typeorm/repositories/UsersTokensRepository'
 
+require('dotenv').config()
+
 interface IPayload {
   sub: string
 }
@@ -21,7 +23,10 @@ export async function ensureAuthenticated(
   const [, token] = authHeader.split(' ')
 
   try {
-    const { sub: userId } = jwt.verify(token, process.env.SECRET_REFRESH_TOKEN) as IPayload
+    const { sub: userId } = jwt.verify(
+      token,
+      process.env.SECRET_REFRESH_TOKEN as string
+    ) as IPayload
 
     const user = await usersTokensRepository.findByUserIdAndRefreshToken(userId, token)
     if (!user) throw new AppError('User does not exists!', 401)

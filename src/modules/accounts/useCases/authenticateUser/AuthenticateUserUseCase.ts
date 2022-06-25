@@ -7,6 +7,8 @@ import { IDateProvider } from '@core/container/providers/interfaces/IDateProvide
 import { IUsersRepository } from '@modules/accounts/repositories/interfaces/IUsersRepository'
 import { IUsersTokensRepository } from '@modules/accounts/repositories/interfaces/IUsersTokensRepository'
 
+require('dotenv').config()
+
 interface IRequest {
   email: string
   password: string
@@ -33,16 +35,16 @@ class AuthenticateUserUseCase {
     const passwdMatch = await bcrypt.compare(password, user.password)
     if (!passwdMatch) throw new AppError('Email or password are incorrect!')
 
-    const token = jwt.sign({}, process.env.SECRET_TOKEN, {
+    const token = jwt.sign({}, process.env.SECRET_TOKEN as string, {
       subject: user.id,
       expiresIn: process.env.EXPIRES_IN_TOKEN,
     })
-    const refreshToken = jwt.sign({ email }, process.env.SECRET_REFRESH_TOKEN, {
+    const refreshToken = jwt.sign({ email }, process.env.SECRET_REFRESH_TOKEN as string, {
       subject: user.id,
-      expiresIn: process.env.EXPIRES_IN_REFRESH_TOKEN,
+      expiresIn: process.env.EXPIRES_IN_REFRESH_TOKEN as string,
     })
     const refreshTokenExpiresDate = this.dateProvider.addDays(
-      process.env.EXPIRES_REFRESH_TOKEN_DAYS
+      process.env.EXPIRES_REFRESH_TOKEN_DAYS as string
     )
 
     await this.usersTokensRepository.create({

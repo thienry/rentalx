@@ -5,6 +5,8 @@ import { AppError } from '@core/errors/AppError'
 import { IDateProvider } from '@core/container/providers/interfaces/IDateProvider'
 import { IUsersTokensRepository } from '@modules/accounts/repositories/interfaces/IUsersTokensRepository'
 
+require('dotenv').config()
+
 interface IPayload {
   sub: string
   email: string
@@ -27,12 +29,12 @@ class RefreshTokenUseCase {
     await this.usersTokensRepository.removeById(userToken.id)
 
     const refreshTokenExpiresDate = this.dateProvider.addDays(
-      process.env.EXPIRES_REFRESH_TOKEN_DAYS
+      process.env.EXPIRES_REFRESH_TOKEN_DAYS as string
     )
 
-    const refreshToken = jwt.sign({ email }, process.env.SECRET_REFRESH_TOKEN, {
+    const refreshToken = jwt.sign({ email }, process.env.SECRET_REFRESH_TOKEN as string, {
       subject: userId,
-      expiresIn: process.env.EXPIRES_IN_REFRESH_TOKEN,
+      expiresIn: process.env.EXPIRES_IN_REFRESH_TOKEN as string,
     })
 
     await this.usersTokensRepository.create({
