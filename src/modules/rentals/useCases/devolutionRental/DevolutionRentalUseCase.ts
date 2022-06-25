@@ -2,8 +2,8 @@ import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@core/errors/AppError'
 import { Rental } from '@modules/rentals/infra/typeorm/entities/Rental'
+import { IDateProvider } from '@core/container/providers/interfaces/IDateProvider'
 import { ICarsRepository } from '@modules/cars/repositories/interfaces/ICarsRepository'
-import { IDateProvider } from '@core/container/providers/dateProvider/interfaces/IDateProvider'
 import { IRentalsRepository } from '@modules/rentals/repositories/interfaces/IRentalsRepository'
 
 interface IRequest {
