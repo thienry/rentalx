@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 
 import { IStorageProvider } from '@shared/providers/interfaces/IStorageProvider'
+import { STORAGE_PROVIDER, CARS_IMAGES_REPOSITORY } from '@shared/utils/constants'
 import { ICarsImagesRepository } from '@modules/cars/repositories/interfaces/ICarsImagesRepository'
 
 interface IRequest {
@@ -11,8 +12,8 @@ interface IRequest {
 @injectable()
 class UploadCarImagesUseCase {
   constructor(
-    @inject('StorageProvider') private storageProvider: IStorageProvider,
-    @inject('CarsImagesRepository') private carsImagesRepository: ICarsImagesRepository
+    @inject(STORAGE_PROVIDER) private storageProvider: IStorageProvider,
+    @inject(CARS_IMAGES_REPOSITORY) private carsImagesRepository: ICarsImagesRepository
   ) {}
 
   async execute(data: IRequest): Promise<void> {

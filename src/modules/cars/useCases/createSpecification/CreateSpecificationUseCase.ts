@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@core/errors/AppError'
+import { SPECIFICATIONS_REPOSITORY } from '@shared/utils/constants'
 import { Specification } from '@modules/cars/infra/typeorm/entities/Specification'
 import { ISpecificationsRepository } from '@modules/cars/repositories/interfaces/ISpecificationsRepository'
 
@@ -12,7 +13,7 @@ interface IRequest {
 @injectable()
 class CreateSpecificationUseCase {
   constructor(
-    @inject('SpecificationsRepository') private specificationsRepository: ISpecificationsRepository
+    @inject(SPECIFICATIONS_REPOSITORY) private specificationsRepository: ISpecificationsRepository
   ) {}
 
   async execute({ name, description }: IRequest): Promise<Specification> {

@@ -1,11 +1,12 @@
+import 'reflect-metadata'
+
 import { AppError } from '@core/errors/AppError'
 import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO'
 import { DayjsDateProvider } from '@shared/providers/dateProvider/DayjsDateProvider'
+import { CreateUserUseCase } from '@modules/accounts/useCases/createUser/CreateUserUseCase'
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory'
+import { AuthenticateUserUseCase } from '@modules/accounts/useCases/authenticateUser/AuthenticateUserUseCase'
 import { UsersTokensRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersTokensRepositoryInMemory'
-
-import { CreateUserUseCase } from '../createUser/CreateUserUseCase'
-import { AuthenticateUserUseCase } from './AuthenticateUserUseCase'
 
 let dateProvider: DayjsDateProvider
 let createUserUseCase: CreateUserUseCase

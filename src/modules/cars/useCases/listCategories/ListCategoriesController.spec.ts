@@ -1,3 +1,5 @@
+import 'reflect-metadata'
+
 import bcrypt from 'bcrypt'
 import request from 'supertest'
 import { v4 as uuidV4 } from 'uuid'
@@ -25,13 +27,13 @@ describe('List Category Controller', () => {
 
   it('Should be able to list all categories', async () => {
     const responseToken = await request(app)
-      .post('/sessions')
+      .post('/session')
       .send({ email: 'admin@rentalx.com', password: 'admin' })
 
     await request(app)
       .post('/categories')
       .send({ name: 'Valid name', description: 'Valid description' })
-      .set({ Authorization: `Bearer ${responseToken.body.refresh_token}` })
+      .set({ Authorization: `Bearer ${responseToken.body.token}` })
 
     const res = await request(app).get('/categories')
 

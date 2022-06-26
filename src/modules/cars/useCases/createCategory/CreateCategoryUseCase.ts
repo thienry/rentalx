@@ -1,7 +1,7 @@
-import 'reflect-metadata'
 import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@core/errors/AppError'
+import { CATEGORIES_REPOSITORY } from '@shared/utils/constants'
 import { Category } from '@modules/cars/infra/typeorm/entities/Category'
 import { ICategoriesRepository } from '@modules/cars/repositories/interfaces/ICategoriesRepository'
 
@@ -12,9 +12,7 @@ interface IRequest {
 
 @injectable()
 class CreateCategoryUseCase {
-  constructor(
-    @inject('CategoriesRepository') private categoriesRepository: ICategoriesRepository
-  ) {}
+  constructor(@inject(CATEGORIES_REPOSITORY) private categoriesRepository: ICategoriesRepository) {}
 
   async execute({ name, description }: IRequest): Promise<Category> {
     const categoryAlreadyExists = await this.categoriesRepository.findByName(name)

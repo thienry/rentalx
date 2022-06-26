@@ -1,17 +1,15 @@
 import { inject, injectable } from 'tsyringe'
 
+import { CATEGORIES_REPOSITORY } from '@shared/utils/constants'
 import { Category } from '@modules/cars/infra/typeorm/entities/Category'
 import { ICategoriesRepository } from '@modules/cars/repositories/interfaces/ICategoriesRepository'
 
 @injectable()
 class ListCategoriesUseCase {
-  constructor(
-    @inject('CategoriesRepository') private categoriesRepository: ICategoriesRepository
-  ) {}
+  constructor(@inject(CATEGORIES_REPOSITORY) private categoriesRepository: ICategoriesRepository) {}
 
   async execute(): Promise<Category[]> {
-    const categories = await this.categoriesRepository.list()
-    return categories
+    return this.categoriesRepository.list()
   }
 }
 

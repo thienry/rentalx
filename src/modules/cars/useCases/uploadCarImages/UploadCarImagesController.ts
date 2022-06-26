@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 
 import { UploadCarImagesUseCase } from '@modules/cars/useCases/uploadCarImages/UploadCarImagesUseCase'
 
-type IFiles = {
+interface IFiles {
   filename: string
 }
 

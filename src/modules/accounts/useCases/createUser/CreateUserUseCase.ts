@@ -3,13 +3,14 @@ import bcrypt from 'bcrypt'
 import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@core/errors/AppError'
+import { USERS_REPOSITORY } from '@shared/utils/constants'
 import { User } from '@modules/accounts/infra/typeorm/entities/User'
 import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO'
 import { IUsersRepository } from '@modules/accounts/repositories/interfaces/IUsersRepository'
 
 @injectable()
 class CreateUserUseCase {
-  constructor(@inject('UsersRepository') private usersRepository: IUsersRepository) {}
+  constructor(@inject(USERS_REPOSITORY) private usersRepository: IUsersRepository) {}
 
   async execute(data: ICreateUserDTO): Promise<User> {
     const userAlreadyExists = await this.usersRepository.findByEmail(data.email)

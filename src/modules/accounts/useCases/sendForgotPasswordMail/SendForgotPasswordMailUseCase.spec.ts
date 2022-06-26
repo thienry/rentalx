@@ -1,3 +1,5 @@
+import 'reflect-metadata'
+
 import { AppError } from '@core/errors/AppError'
 import { DayjsDateProvider } from '@shared/providers/dateProvider/DayjsDateProvider'
 import { MailProviderInMemory } from '@shared/providers/in-memory/MailProviderInMemory'

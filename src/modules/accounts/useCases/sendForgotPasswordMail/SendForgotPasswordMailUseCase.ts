@@ -7,16 +7,22 @@ import { IDateProvider } from '@shared/providers/interfaces/IDateProvider'
 import { IMailProvider } from '@shared/providers/interfaces/IMailProvider'
 import { IUsersRepository } from '@modules/accounts/repositories/interfaces/IUsersRepository'
 import { IUsersTokensRepository } from '@modules/accounts/repositories/interfaces/IUsersTokensRepository'
+import {
+  DATE_PROVIDER,
+  MAIL_PROVIDER,
+  USERS_REPOSITORY,
+  USERS_TOKENS_REPOSITORY,
+} from '@shared/utils/constants'
 
 @injectable()
 class SendForgotPasswordMailUseCase {
   private readonly EMAIL_SUBJECT = 'Password Recovery'
 
   constructor(
-    @inject('DateProvider') private dateProvider: IDateProvider,
-    @inject('EtherealMailProvider') private mailProvider: IMailProvider,
-    @inject('UsersRepository') private usersRepository: IUsersRepository,
-    @inject('UsersTokensRepository') private usersTokensRepository: IUsersTokensRepository
+    @inject(DATE_PROVIDER) private dateProvider: IDateProvider,
+    @inject(MAIL_PROVIDER) private mailProvider: IMailProvider,
+    @inject(USERS_REPOSITORY) private usersRepository: IUsersRepository,
+    @inject(USERS_TOKENS_REPOSITORY) private usersTokensRepository: IUsersTokensRepository
   ) {}
 
   async execute(email: string) {

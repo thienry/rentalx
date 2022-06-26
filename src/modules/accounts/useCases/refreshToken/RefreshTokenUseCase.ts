@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken'
 import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@core/errors/AppError'
+import { DATE_PROVIDER, USERS_REPOSITORY } from '@shared/utils/constants'
 import { IDateProvider } from '@shared/providers/interfaces/IDateProvider'
 import { IUsersTokensRepository } from '@modules/accounts/repositories/interfaces/IUsersTokensRepository'
 
@@ -18,8 +19,8 @@ interface ITokenResponse {
 @injectable()
 class RefreshTokenUseCase {
   constructor(
-    @inject('DateProvider') private dateProvider: IDateProvider,
-    @inject('UsersTokensRepository') private usersTokensRepository: IUsersTokensRepository
+    @inject(DATE_PROVIDER) private dateProvider: IDateProvider,
+    @inject(USERS_REPOSITORY) private usersTokensRepository: IUsersTokensRepository
   ) {}
 
   async execute(token: string): Promise<ITokenResponse> {

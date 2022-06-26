@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@core/errors/AppError'
+import { STORAGE_PROVIDER, USERS_REPOSITORY } from '@shared/utils/constants'
 import { IStorageProvider } from '@shared/providers/interfaces/IStorageProvider'
 import { IUsersRepository } from '@modules/accounts/repositories/interfaces/IUsersRepository'
 
@@ -12,8 +13,8 @@ interface IRequest {
 @injectable()
 class UpdateUserAvatarUseCase {
   constructor(
-    @inject('StorageProvider') private storageProvider: IStorageProvider,
-    @inject('UsersRepository') private usersRepository: IUsersRepository
+    @inject(STORAGE_PROVIDER) private storageProvider: IStorageProvider,
+    @inject(USERS_REPOSITORY) private usersRepository: IUsersRepository
   ) {}
 
   async execute({ userId, avatarFile }: IRequest): Promise<void> {

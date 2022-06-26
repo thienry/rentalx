@@ -4,6 +4,7 @@ import { AppError } from '@core/errors/AppError'
 import { Rental } from '@modules/rentals/infra/typeorm/entities/Rental'
 import { IDateProvider } from '@shared/providers/interfaces/IDateProvider'
 import { ICarsRepository } from '@modules/cars/repositories/interfaces/ICarsRepository'
+import { DATE_PROVIDER, CARS_REPOSITORY, RENTALS_REPOSITORY } from '@shared/utils/constants'
 import { IRentalsRepository } from '@modules/rentals/repositories/interfaces/IRentalsRepository'
 
 interface IRequest {
@@ -13,9 +14,9 @@ interface IRequest {
 @injectable()
 class DevolutionRentalUseCase {
   constructor(
-    @inject('DateProvider') private dateProvider: IDateProvider,
-    @inject('CarsRepository') private carsRepository: ICarsRepository,
-    @inject('RentalsRepository') private rentalsRepository: IRentalsRepository
+    @inject(DATE_PROVIDER) private dateProvider: IDateProvider,
+    @inject(CARS_REPOSITORY) private carsRepository: ICarsRepository,
+    @inject(RENTALS_REPOSITORY) private rentalsRepository: IRentalsRepository
   ) {}
 
   async execute({ rental_id }: IRequest): Promise<Rental> {

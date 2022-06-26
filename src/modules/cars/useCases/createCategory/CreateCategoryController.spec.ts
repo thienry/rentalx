@@ -1,3 +1,5 @@
+import 'reflect-metadata'
+
 import bcrypt from 'bcrypt'
 import request from 'supertest'
 import { v4 as uuidV4 } from 'uuid'
@@ -25,13 +27,13 @@ describe('Create Category Controller', () => {
 
   it('Should be able to create a new category', async () => {
     const responseToken = await request(app)
-      .post('/sessions')
+      .post('/session')
       .send({ email: 'admin@rentalx.com', password: 'admin' })
 
     const res = await request(app)
       .post('/categories')
       .send({ name: 'Valid name', description: 'Valid description' })
-      .set({ Authorization: `Bearer ${responseToken.body.refresh_token}` })
+      .set({ Authorization: `Bearer ${responseToken.body.token}` })
 
     expect(res.status).toBe(201)
   })
@@ -44,7 +46,7 @@ describe('Create Category Controller', () => {
     const res = await request(app)
       .post('/categories')
       .send({ name: 'Valid name', description: 'Valid description' })
-      .set({ Authorization: `Bearer ${responseToken.body.refresh_token}` })
+      .set({ Authorization: `Bearer ${responseToken.body.token}` })
 
     expect(res.status).toBe(400)
   })

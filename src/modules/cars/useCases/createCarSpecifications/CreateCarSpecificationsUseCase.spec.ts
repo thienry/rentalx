@@ -2,12 +2,12 @@ import 'reflect-metadata'
 
 import { AppError } from '@core/errors/AppError'
 import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory'
-import { CreateCarSpecificationsUseCase } from '@modules/cars/useCases/createCarSpecifications/CreateCarSpecificationsUseCase'
 import { SpecificationRepositoryInMemory } from '@modules/cars/repositories/in-memory/SpecificationRepositoryInMemory'
+import { CreateCarSpecificationsUseCase } from '@modules/cars/useCases/createCarSpecifications/CreateCarSpecificationsUseCase'
 
 let carsRepositoryInMemory: CarsRepositoryInMemory
-let specificationsRepositoryInMemory: SpecificationRepositoryInMemory
 let createCarSpecification: CreateCarSpecificationsUseCase
+let specificationsRepositoryInMemory: SpecificationRepositoryInMemory
 
 describe('Create car specification', () => {
   beforeEach(() => {

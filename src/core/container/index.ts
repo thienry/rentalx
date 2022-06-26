@@ -16,14 +16,23 @@ import { CarsImagesRepository } from '@modules/cars/infra/typeorm/repositories/C
 import { CategoriesRepository } from '@modules/cars/infra/typeorm/repositories/CategoriesRepository'
 import { UsersTokensRepository } from '@modules/accounts/infra/typeorm/repositories/UsersTokensRepository'
 import { SpecificationsRepository } from '@modules/cars/infra/typeorm/repositories/SpecificationsRepository'
+import {
+  CARS_REPOSITORY,
+  USERS_REPOSITORY,
+  RENTALS_REPOSITORY,
+  CATEGORIES_REPOSITORY,
+  CARS_IMAGES_REPOSITORY,
+  USERS_TOKENS_REPOSITORY,
+  SPECIFICATIONS_REPOSITORY,
+} from '@shared/utils/constants'
 
-container.registerSingleton<ICarsRepository>('CarsRepository', CarsRepository)
-container.registerSingleton<IUsersRepository>('UsersRepository', UsersRepository)
-container.registerSingleton<IRentalsRepository>('RentalsRepository', RentalsRepository)
-container.registerSingleton<ICarsImagesRepository>('CarsImagesRepository', CarsImagesRepository)
-container.registerSingleton<ICategoriesRepository>('CategoriesRepository', CategoriesRepository)
-container.registerSingleton<IUsersTokensRepository>('UsersTokensRepository', UsersTokensRepository)
+container.registerSingleton<ICarsRepository>(CARS_REPOSITORY, CarsRepository)
+container.registerSingleton<IUsersRepository>(USERS_REPOSITORY, UsersRepository)
+container.registerSingleton<IRentalsRepository>(RENTALS_REPOSITORY, RentalsRepository)
+container.registerSingleton<ICategoriesRepository>(CATEGORIES_REPOSITORY, CategoriesRepository)
+container.registerSingleton<ICarsImagesRepository>(CARS_IMAGES_REPOSITORY, CarsImagesRepository)
+container.registerSingleton<IUsersTokensRepository>(USERS_TOKENS_REPOSITORY, UsersTokensRepository)
 container.registerSingleton<ISpecificationsRepository>(
-  'SpecificationsRepository',
+  SPECIFICATIONS_REPOSITORY,
   SpecificationsRepository
 )

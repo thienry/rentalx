@@ -1,7 +1,7 @@
-import 'reflect-metadata'
 import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@core/errors/AppError'
+import { CARS_REPOSITORY } from '@shared/utils/constants'
 import { Car } from '@modules/cars/infra/typeorm/entities/Car'
 import { ICarsRepository } from '@modules/cars/repositories/interfaces/ICarsRepository'
 
@@ -17,7 +17,7 @@ interface IRequest {
 
 @injectable()
 class CreateCarUseCase {
-  constructor(@inject('CarsRepository') private carsRepository: ICarsRepository) {}
+  constructor(@inject(CARS_REPOSITORY) private carsRepository: ICarsRepository) {}
 
   async execute(data: IRequest): Promise<Car> {
     const carAlreadyExists = await this.carsRepository.findByLicensePlate(data.license_plate)

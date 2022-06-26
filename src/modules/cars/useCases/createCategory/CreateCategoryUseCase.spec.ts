@@ -1,7 +1,8 @@
-import { AppError } from '@core/errors/AppError'
-import { CategoriesRepositoryInMemory } from '@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory'
+import 'reflect-metadata'
 
-import { CreateCategoryUseCase } from './CreateCategoryUseCase'
+import { AppError } from '@core/errors/AppError'
+import { CreateCategoryUseCase } from '@modules/cars/useCases/createCategory/CreateCategoryUseCase'
+import { CategoriesRepositoryInMemory } from '@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory'
 
 let createCategoryUseCase: CreateCategoryUseCase
 let categoriesRepositoryInMemory: CategoriesRepositoryInMemory

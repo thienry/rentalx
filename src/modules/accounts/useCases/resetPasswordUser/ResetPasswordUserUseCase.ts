@@ -4,6 +4,7 @@ import { inject, injectable } from 'tsyringe'
 import { AppError } from '@core/errors/AppError'
 import { IDateProvider } from '@shared/providers/interfaces/IDateProvider'
 import { IUsersRepository } from '@modules/accounts/repositories/interfaces/IUsersRepository'
+import { DATE_PROVIDER, USERS_REPOSITORY, USERS_TOKENS_REPOSITORY } from '@shared/utils/constants'
 import { IUsersTokensRepository } from '@modules/accounts/repositories/interfaces/IUsersTokensRepository'
 
 interface IRequest {
@@ -14,9 +15,9 @@ interface IRequest {
 @injectable()
 class ResetPasswordUserUseCase {
   constructor(
-    @inject('DateProvider') private dateProvider: IDateProvider,
-    @inject('UsersRepository') private usersRepository: IUsersRepository,
-    @inject('UsersTokensRepository') private usersTokensRepository: IUsersTokensRepository
+    @inject(DATE_PROVIDER) private dateProvider: IDateProvider,
+    @inject(USERS_REPOSITORY) private usersRepository: IUsersRepository,
+    @inject(USERS_TOKENS_REPOSITORY) private usersTokensRepository: IUsersTokensRepository
   ) {}
 
   async execute(data: IRequest): Promise<void> {
