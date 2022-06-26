@@ -4,6 +4,7 @@ import express, { NextFunction, Request, Response } from 'express'
 
 import 'express-async-errors'
 
+import upload from '@config/upload'
 import { AppError } from '@core/errors/AppError'
 
 import { router } from './routes'
@@ -15,7 +16,10 @@ const app = express()
 
 app.use(express.json())
 
+app.use('/cars', express.static(`${upload.tmpFolder}/cars`))
+app.use('/avatar', express.static(`${upload.tmpFolder}/avatar`))
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+
 app.use(router)
 
 app.use((err: Error, request: Request, response: Response, _next: NextFunction) => {
