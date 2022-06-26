@@ -7,6 +7,8 @@ import { IDateProvider } from '@shared/providers/interfaces/IDateProvider'
 import { IUsersRepository } from '@modules/accounts/repositories/interfaces/IUsersRepository'
 import { IUsersTokensRepository } from '@modules/accounts/repositories/interfaces/IUsersTokensRepository'
 
+require('dotenv').config()
+
 interface IRequest {
   email: string
   password: string
@@ -21,7 +23,7 @@ interface IResponse {
 @injectable()
 class AuthenticateUserUseCase {
   constructor(
-    @inject('DayjsDateProvider') private dateProvider: IDateProvider,
+    @inject('DateProvider') private dateProvider: IDateProvider,
     @inject('UsersRepository') private usersRepository: IUsersRepository,
     @inject('UsersTokensRepository') private usersTokensRepository: IUsersTokensRepository
   ) {}

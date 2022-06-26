@@ -13,7 +13,7 @@ interface IRequest {
 @injectable()
 class DevolutionRentalUseCase {
   constructor(
-    @inject('DayjsDateProvider') private dateProvider: IDateProvider,
+    @inject('DateProvider') private dateProvider: IDateProvider,
     @inject('CarsRepository') private carsRepository: ICarsRepository,
     @inject('RentalsRepository') private rentalsRepository: IRentalsRepository
   ) {}

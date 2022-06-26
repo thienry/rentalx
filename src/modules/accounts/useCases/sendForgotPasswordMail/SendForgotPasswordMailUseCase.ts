@@ -13,7 +13,7 @@ class SendForgotPasswordMailUseCase {
   private readonly EMAIL_SUBJECT = 'Password Recovery'
 
   constructor(
-    @inject('DayjsDateProvider') private dateProvider: IDateProvider,
+    @inject('DateProvider') private dateProvider: IDateProvider,
     @inject('EtherealMailProvider') private mailProvider: IMailProvider,
     @inject('UsersRepository') private usersRepository: IUsersRepository,
     @inject('UsersTokensRepository') private usersTokensRepository: IUsersTokensRepository

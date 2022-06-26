@@ -18,7 +18,7 @@ interface ITokenResponse {
 @injectable()
 class RefreshTokenUseCase {
   constructor(
-    @inject('DayjsDateProvider') private dateProvider: IDateProvider,
+    @inject('DateProvider') private dateProvider: IDateProvider,
     @inject('UsersTokensRepository') private usersTokensRepository: IUsersTokensRepository
   ) {}
 
