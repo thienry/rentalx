@@ -10,6 +10,7 @@ import { IUsersTokensRepository } from '@modules/accounts/repositories/interface
 import {
   DATE_PROVIDER,
   MAIL_PROVIDER,
+  USER_NOT_FOUND,
   USERS_REPOSITORY,
   USERS_TOKENS_REPOSITORY,
 } from '@shared/utils/constants'
@@ -29,7 +30,7 @@ class SendForgotPasswordMailUseCase {
     const { APP_API_URL, FORGOT_MAIL_URI } = process.env
 
     const user = await this.usersRepository.findByEmail(email)
-    if (!user) throw new AppError('User does not exists!')
+    if (!user) throw new AppError(USER_NOT_FOUND)
 
     const tplPath = path.resolve(__dirname, '..', '..', 'views', 'emails', 'forgotPassword.hbs')
 

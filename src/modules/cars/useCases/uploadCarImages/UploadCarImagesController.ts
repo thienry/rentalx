@@ -15,7 +15,7 @@ class UploadCarImagesController {
     const uploadCarImageUseCase = container.resolve(UploadCarImagesUseCase)
     await uploadCarImageUseCase.execute({ car_id: req.params.id, images_name: filenames })
 
-    return res.status(201).json({ message: 'Ok Created!' })
+    return res.status(201).json({ message: 'Uploaded!' })
   }
 }
 

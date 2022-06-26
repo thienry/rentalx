@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 
 import { AppError } from '@core/errors/AppError'
+import { CAR_NOT_FOUND } from '@shared/utils/constants'
 import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory'
 import { SpecificationRepositoryInMemory } from '@modules/cars/repositories/in-memory/SpecificationRepositoryInMemory'
 import { CreateCarSpecificationsUseCase } from '@modules/cars/useCases/createCarSpecifications/CreateCarSpecificationsUseCase'
@@ -52,6 +53,6 @@ describe('Create car specification', () => {
     ]
     await expect(
       createCarSpecification.execute({ car_id: carId, specifications_id: specificationsId })
-    ).rejects.toEqual(new AppError('Car does not exists!'))
+    ).rejects.toEqual(new AppError(CAR_NOT_FOUND))
   })
 })

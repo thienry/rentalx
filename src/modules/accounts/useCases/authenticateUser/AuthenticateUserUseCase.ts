@@ -5,8 +5,13 @@ import { inject, injectable } from 'tsyringe'
 import { AppError } from '@core/errors/AppError'
 import { IDateProvider } from '@shared/providers/interfaces/IDateProvider'
 import { IUsersRepository } from '@modules/accounts/repositories/interfaces/IUsersRepository'
-import { DATE_PROVIDER, USERS_REPOSITORY, USERS_TOKENS_REPOSITORY } from '@shared/utils/constants'
 import { IUsersTokensRepository } from '@modules/accounts/repositories/interfaces/IUsersTokensRepository'
+import {
+  DATE_PROVIDER,
+  USERS_REPOSITORY,
+  USERS_TOKENS_REPOSITORY,
+  INCORRECT_EMAIL_OR_PASSWORD,
+} from '@shared/utils/constants'
 
 require('dotenv').config()
 
@@ -39,10 +44,10 @@ class AuthenticateUserUseCase {
     } = process.env
 
     const user = await this.usersRepository.findByEmail(email)
-    if (!user) throw new AppError('Email or password are incorrect!')
+    if (!user) throw new AppError(INCORRECT_EMAIL_OR_PASSWORD)
 
     const passwdMatch = await bcrypt.compare(password, user.password)
-    if (!passwdMatch) throw new AppError('Email or password are incorrect!')
+    if (!passwdMatch) throw new AppError(INCORRECT_EMAIL_OR_PASSWORD)
 
     const token = jwt.sign({}, SECRET_TOKEN, {
       subject: user.id,

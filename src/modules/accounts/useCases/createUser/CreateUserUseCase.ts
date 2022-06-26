@@ -3,9 +3,9 @@ import bcrypt from 'bcrypt'
 import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@core/errors/AppError'
-import { USERS_REPOSITORY } from '@shared/utils/constants'
 import { User } from '@modules/accounts/infra/typeorm/entities/User'
 import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO'
+import { USER_EXISTS, USERS_REPOSITORY } from '@shared/utils/constants'
 import { IUsersRepository } from '@modules/accounts/repositories/interfaces/IUsersRepository'
 
 @injectable()
@@ -14,7 +14,7 @@ class CreateUserUseCase {
 
   async execute(data: ICreateUserDTO): Promise<User> {
     const userAlreadyExists = await this.usersRepository.findByEmail(data.email)
-    if (userAlreadyExists) throw new AppError('User already exists!')
+    if (userAlreadyExists) throw new AppError(USER_EXISTS)
 
     const user = await this.usersRepository.create({
       name: data.name,

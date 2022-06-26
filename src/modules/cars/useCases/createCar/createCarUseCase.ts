@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@core/errors/AppError'
-import { CARS_REPOSITORY } from '@shared/utils/constants'
 import { Car } from '@modules/cars/infra/typeorm/entities/Car'
+import { CAR_EXISTS, CARS_REPOSITORY } from '@shared/utils/constants'
 import { ICarsRepository } from '@modules/cars/repositories/interfaces/ICarsRepository'
 
 interface IRequest {
@@ -21,9 +21,7 @@ class CreateCarUseCase {
 
   async execute(data: IRequest): Promise<Car> {
     const carAlreadyExists = await this.carsRepository.findByLicensePlate(data.license_plate)
-    if (carAlreadyExists) {
-      throw new AppError('Car already exists!')
-    }
+    if (carAlreadyExists) throw new AppError(CAR_EXISTS)
 
     return this.carsRepository.create(data)
   }

@@ -2,8 +2,8 @@ import jwt from 'jsonwebtoken'
 import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@core/errors/AppError'
-import { DATE_PROVIDER, USERS_REPOSITORY } from '@shared/utils/constants'
 import { IDateProvider } from '@shared/providers/interfaces/IDateProvider'
+import { DATE_PROVIDER, REFRESH_TOKEN_NOT_FOUND, USERS_REPOSITORY } from '@shared/utils/constants'
 import { IUsersTokensRepository } from '@modules/accounts/repositories/interfaces/IUsersTokensRepository'
 
 interface IPayload {
@@ -36,7 +36,7 @@ class RefreshTokenUseCase {
     const userId = sub
 
     const userToken = await this.usersTokensRepository.findByUserIdAndRefreshToken(userId, token)
-    if (!userToken) throw new AppError('Refresh Token does not exists!')
+    if (!userToken) throw new AppError(REFRESH_TOKEN_NOT_FOUND)
 
     await this.usersTokensRepository.removeById(userToken.id)
 

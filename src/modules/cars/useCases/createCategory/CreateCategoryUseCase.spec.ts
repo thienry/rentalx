@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 
 import { AppError } from '@core/errors/AppError'
+import { CATEGORY_EXISTS } from '@shared/utils/constants'
 import { CreateCategoryUseCase } from '@modules/cars/useCases/createCategory/CreateCategoryUseCase'
 import { CategoriesRepositoryInMemory } from '@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory'
 
@@ -44,6 +45,6 @@ describe('Create category', () => {
         name: category.name,
         description: category.description,
       })
-    ).rejects.toEqual(new AppError('Category already exists!'))
+    ).rejects.toEqual(new AppError(CATEGORY_EXISTS))
   })
 })

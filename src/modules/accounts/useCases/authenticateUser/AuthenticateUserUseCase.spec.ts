@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 
 import { AppError } from '@core/errors/AppError'
+import { INCORRECT_EMAIL_OR_PASSWORD } from '@shared/utils/constants'
 import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO'
 import { DayjsDateProvider } from '@shared/providers/dateProvider/DayjsDateProvider'
 import { CreateUserUseCase } from '@modules/accounts/useCases/createUser/CreateUserUseCase'
@@ -51,7 +52,7 @@ describe('Authenticate User', () => {
         email: 'false@mail.com',
         password: '1234',
       })
-    ).rejects.toEqual(new AppError('Email or password are incorrect!'))
+    ).rejects.toEqual(new AppError(INCORRECT_EMAIL_OR_PASSWORD))
   })
 
   it('Should not be able to authenticate with incorrect password', async () => {
@@ -65,6 +66,6 @@ describe('Authenticate User', () => {
     await createUserUseCase.execute(user)
     await expect(
       authenticateUserUseCase.execute({ email: user.email, password: 'incorrectPassword' })
-    ).rejects.toEqual(new AppError('Email or password are incorrect!'))
+    ).rejects.toEqual(new AppError(INCORRECT_EMAIL_OR_PASSWORD))
   })
 })

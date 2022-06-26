@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 
 import { AppError } from '@core/errors/AppError'
+import { CAR_EXISTS } from '@shared/utils/constants'
 import { CreateCarUseCase } from '@modules/cars/useCases/createCar/createCarUseCase'
 import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory'
 
@@ -48,7 +49,7 @@ describe('Create Car', () => {
         license_plate: 'ABC-9876',
         description: 'Description Car',
       })
-    ).rejects.toEqual(new AppError('Car already exists!'))
+    ).rejects.toEqual(new AppError(CAR_EXISTS))
   })
 
   it('Should not be able to create a car with available true by default', async () => {

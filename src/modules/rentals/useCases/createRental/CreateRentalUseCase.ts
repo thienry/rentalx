@@ -4,8 +4,15 @@ import { AppError } from '@core/errors/AppError'
 import { Rental } from '@modules/rentals/infra/typeorm/entities/Rental'
 import { IDateProvider } from '@shared/providers/interfaces/IDateProvider'
 import { ICarsRepository } from '@modules/cars/repositories/interfaces/ICarsRepository'
-import { DATE_PROVIDER, CARS_REPOSITORY, RENTALS_REPOSITORY } from '@shared/utils/constants'
 import { IRentalsRepository } from '@modules/rentals/repositories/interfaces/IRentalsRepository'
+import {
+  DATE_PROVIDER,
+  CARS_REPOSITORY,
+  CAR_UNAVAILABLE,
+  RENTALS_REPOSITORY,
+  RENTAL_IN_PROGRESS,
+  INVALID_RETURN_TIME,
+} from '@shared/utils/constants'
 
 interface IRequest {
   car_id: string
@@ -25,14 +32,14 @@ class CreateRentalUseCase {
     const minimumHours = 24
 
     const carUnavailable = await this.rentalsRepository.findOpenRentalByCar(data.car_id)
-    if (carUnavailable) throw new AppError('Car unavailable!')
+    if (carUnavailable) throw new AppError(CAR_UNAVAILABLE)
 
     const rentalOpenToUser = await this.rentalsRepository.findOpenRentalByUser(data.user_id)
-    if (rentalOpenToUser) throw new AppError("There's a rental in progress for a user!")
+    if (rentalOpenToUser) throw new AppError(RENTAL_IN_PROGRESS)
 
     const dateNow = this.dateProvider.dateNow()
     const comparedDate = this.dateProvider.compareInHours(dateNow, data.expected_return_date)
-    if (comparedDate < minimumHours) throw new AppError('Invalid return time!')
+    if (comparedDate < minimumHours) throw new AppError(INVALID_RETURN_TIME)
 
     const rental = await this.rentalsRepository.create({
       car_id: data.car_id,

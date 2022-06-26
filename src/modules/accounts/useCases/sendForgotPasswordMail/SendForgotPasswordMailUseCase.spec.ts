@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 
 import { AppError } from '@core/errors/AppError'
+import { USER_NOT_FOUND } from '@shared/utils/constants'
 import { DayjsDateProvider } from '@shared/providers/dateProvider/DayjsDateProvider'
 import { MailProviderInMemory } from '@shared/providers/in-memory/MailProviderInMemory'
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory'
@@ -58,7 +59,7 @@ describe('Send forgot mail', () => {
 
   it('Should not be able to send an email if user does not exists', async () => {
     await expect(sendForgotPasswordMailUseCase.execute('zibiwtez@tarubi.mc')).rejects.toEqual(
-      new AppError('User does not exists!')
+      new AppError(USER_NOT_FOUND)
     )
   })
 })

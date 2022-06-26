@@ -4,8 +4,14 @@ import { AppError } from '@core/errors/AppError'
 import { Rental } from '@modules/rentals/infra/typeorm/entities/Rental'
 import { IDateProvider } from '@shared/providers/interfaces/IDateProvider'
 import { ICarsRepository } from '@modules/cars/repositories/interfaces/ICarsRepository'
-import { DATE_PROVIDER, CARS_REPOSITORY, RENTALS_REPOSITORY } from '@shared/utils/constants'
 import { IRentalsRepository } from '@modules/rentals/repositories/interfaces/IRentalsRepository'
+import {
+  CAR_NOT_FOUND,
+  DATE_PROVIDER,
+  CARS_REPOSITORY,
+  RENTAL_NOT_FOUND,
+  RENTALS_REPOSITORY,
+} from '@shared/utils/constants'
 
 interface IRequest {
   rental_id: string
@@ -21,10 +27,10 @@ class DevolutionRentalUseCase {
 
   async execute({ rental_id }: IRequest): Promise<Rental> {
     const rental = await this.rentalsRepository.findById(rental_id)
-    if (!rental) throw new AppError('Rental does not exists!')
+    if (!rental) throw new AppError(RENTAL_NOT_FOUND)
 
     const car = await this.carsRepository.findById(rental.car_id)
-    if (!car) throw new AppError('Car does not exists!')
+    if (!car) throw new AppError(CAR_NOT_FOUND)
 
     const minimum_daily = 1
     const dateNow = this.dateProvider.dateNow()

@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 import { AppError } from '@core/errors/AppError'
 import { DayjsDateProvider } from '@shared/providers/dateProvider/DayjsDateProvider'
 import { CreateRentalUseCase } from '@modules/rentals/useCases/createRental/CreateRentalUseCase'
+import { CAR_UNAVAILABLE, RENTAL_IN_PROGRESS, INVALID_RETURN_TIME } from '@shared/utils/constants'
 import { CarsRepositoryInMemory } from '@modules/cars/repositories/in-memory/CarsRepositoryInMemory'
 import { RentalsRepositoryInMemory } from '@modules/rentals/repositories/in-memory/RentalsRepositoryInMemory'
 
@@ -60,7 +61,7 @@ describe('Create Rental', () => {
         user_id: 'c2dbe8f2-fbed-4b0c-9882-04d180b58a3d',
         expected_return_date: dayAdd24Hrs,
       })
-    ).rejects.toEqual(new AppError("There's a rental in progress for a user!"))
+    ).rejects.toEqual(new AppError(RENTAL_IN_PROGRESS))
   })
 
   it('Should not be able create a new rental if there is another open to the same car', async () => {
@@ -76,7 +77,7 @@ describe('Create Rental', () => {
         user_id: 'c2dbe8f2-fbed-4b0c-9882-04d180b58a3c',
         expected_return_date: dayAdd24Hrs,
       })
-    ).rejects.toEqual(new AppError('Car unavailable!'))
+    ).rejects.toEqual(new AppError(CAR_UNAVAILABLE))
   })
 
   it('Should not be able create a new rental with invalid return time', async () => {
@@ -86,6 +87,6 @@ describe('Create Rental', () => {
         user_id: 'c2dbe8f2-fbed-4b0c-9882-04d180b58a3d',
         expected_return_date: dayjs().toDate(),
       })
-    ).rejects.toEqual(new AppError('Invalid return time!'))
+    ).rejects.toEqual(new AppError(INVALID_RETURN_TIME))
   })
 })
