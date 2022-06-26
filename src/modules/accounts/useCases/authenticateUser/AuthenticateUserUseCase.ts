@@ -7,8 +7,6 @@ import { IDateProvider } from '@shared/providers/interfaces/IDateProvider'
 import { IUsersRepository } from '@modules/accounts/repositories/interfaces/IUsersRepository'
 import { IUsersTokensRepository } from '@modules/accounts/repositories/interfaces/IUsersTokensRepository'
 
-require('dotenv').config()
-
 interface IRequest {
   email: string
   password: string

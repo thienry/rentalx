@@ -3,8 +3,6 @@ import { NextFunction, Request, Response } from 'express'
 
 import { AppError } from '@core/errors/AppError'
 
-require('dotenv').config()
-
 interface IPayload {
   sub: string
 }

@@ -8,8 +8,6 @@ import { IMailProvider } from '@shared/providers/interfaces/IMailProvider'
 import { IUsersRepository } from '@modules/accounts/repositories/interfaces/IUsersRepository'
 import { IUsersTokensRepository } from '@modules/accounts/repositories/interfaces/IUsersTokensRepository'
 
-require('dotenv').config()
-
 @injectable()
 class SendForgotPasswordMailUseCase {
   private readonly EMAIL_SUBJECT = 'Password Recovery'

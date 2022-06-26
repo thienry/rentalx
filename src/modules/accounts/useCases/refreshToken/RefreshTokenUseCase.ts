@@ -5,8 +5,6 @@ import { AppError } from '@core/errors/AppError'
 import { IDateProvider } from '@shared/providers/interfaces/IDateProvider'
 import { IUsersTokensRepository } from '@modules/accounts/repositories/interfaces/IUsersTokensRepository'
 
-require('dotenv').config()
-
 interface IPayload {
   sub: string
   email: string

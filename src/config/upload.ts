@@ -1,8 +1,8 @@
+import path from 'path'
 import crypto from 'crypto'
 import multer from 'multer'
-import { resolve } from 'path'
 
-const tmpFolder = resolve(__dirname, '..', '..', 'tmp')
+const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp')
 
 export default {
   tmpFolder,
